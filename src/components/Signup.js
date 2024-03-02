@@ -60,7 +60,7 @@ const Signup = () => {
       Submit
     </Button>
   </Form>
-  <p className='bg-warning-subtle border d-inline-block p-2 border-1 rounded border-warning my-4 mx-auto'>Have an account ? <Link className='text-decoration-none'>Login</Link></p>
+  <p className='bg-warning-subtle border d-inline-block p-2 border-1 rounded border-warning my-4 mx-auto'>Have an account ? <Link to='/' className='text-decoration-none'>Login</Link></p>
     </div>
   )
 }
