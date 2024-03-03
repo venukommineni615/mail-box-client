@@ -37,6 +37,7 @@ const Mails = () => {
       <Tab.Container id="left-tabs-example" defaultActiveKey="first" >
         <Row className="mx-0 pt-1 bg-warning-subtle mx-2">
           <Col sm={2} className="bg-warning-subtle px-0">
+            <Button variant="warning" className=" mb-2 shadow">Compose</Button>
             <Nav variant="pills" className="flex-column bg-warning-subtle">
               <Nav.Item >
                 <Nav.Link eventKey="first"  className="text-dark rounded-0">Inbox</Nav.Link>
