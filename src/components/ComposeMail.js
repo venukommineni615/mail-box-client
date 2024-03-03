@@ -75,6 +75,7 @@ const ComposeMail = () => {
         <InputGroup className="mb-3  shadow border border-1 border-secondary rounded">
           <Form.Control
           ref={subject}
+          type='text'
             placeholder="Subject"
             aria-label="Username"
             aria-describedby="basic-addon1"
@@ -83,15 +84,11 @@ const ComposeMail = () => {
         </InputGroup>
         <InputGroup className="mb-3 outline-none border-bottom-2">
           <Editor
-            
-           
             editorState={editorState}
-          
             onEditorStateChange={handleEditorStateChange}
             toolbarClassName="toolbarClassName border border-2 border-secondary shadow rounded mx-auto"
             wrapperClassName="wrapperClassName mx-auto vw-100 vh-50 mb-4"
             editorClassName="editorClassName bg-white shadow border border-2  border-secondary rounded"
-            
           />
           ;
         </InputGroup>
