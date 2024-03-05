@@ -29,7 +29,6 @@ const Signup = () => {
             throw new Error(data.error.message)
         }else{
             localStorage.setItem('token',data.idToken)
-            console.log('user has successfully signed up')
         }
        } catch (error) {
         alert(error)

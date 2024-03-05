@@ -10,7 +10,7 @@ const router=createBrowserRouter([
   {path:'/home',element:<Home></Home>},
   {path:'/signup',element:<Signup></Signup>},
   {path:'/compose',element:<ComposeMail></ComposeMail>},
-  {path:'/mails',element:<Mails></Mails>},
+  {path:'/inbox',element:<Mails></Mails>},
 ])
 function App() {
   return (

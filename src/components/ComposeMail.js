@@ -13,27 +13,32 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 const ComposeMail = () => {
     const email=useRef()
     const subject=useRef()
+    let selfEmailId = localStorage.getItem('email');
+let cleanedEmail = selfEmailId.replace("@", "").replace(".com", "");
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const handleEditorStateChange = (newEditorState) => {
     setEditorState(newEditorState);
   };
+  
   const submitData= async(e)=>{
     e.preventDefault();
     const editorContent = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
-    console.log('editor',editorContent)
+    
     const formData={
         email:email.current.value,
         subject:subject.current.value,
         editorContent,
         
     }
+    let updatedEmail = email.current.value.replace("@", "").replace(".com", "");
     try {
-        const res = await fetch('https://mail-composer-default-rtdb.firebaseio.com/inbox.json', {
+        const res = await fetch(`https://mail-composer-default-rtdb.firebaseio.com/${cleanedEmail}/sent.json`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({...formData,receiver:updatedEmail}),
         });
         const data=await res.json()
         if(!res.ok){
@@ -45,16 +50,27 @@ const ComposeMail = () => {
       }
     
 
+      try {
+          const res = await fetch(`https://mail-composer-default-rtdb.firebaseio.com/${updatedEmail}/receive.json`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({...formData,from:cleanedEmail, sender:cleanedEmail,read:false}),
+          });
+          const data=await res.json()
+          if(!res.ok){
+              throw new Error(data.error.message)
+          }
+         
+        } catch (error) {
+          console.error('Error submitting form:', error);
+        }
+      
   }
-//   const toolbarOptions = {
-//     options: ['inline', 'blockType', 'fontSize', 'fontFamily'],
-//     inline: {
-//       options: ['bold', 'italic', 'underline'],
-//     },
-//     fontSize: {
-//       options: [12, 14, 18, 20, 24, 28, 32]
-//     },
-//   };
+
+  
+
   return (
     <Form className="d-flex flex-column justify-content-between vh-100 p-3 bg-warning-subtle" onSubmit={submitData}>
       <div className="vh-75">
@@ -89,6 +105,7 @@ const ComposeMail = () => {
             toolbarClassName="toolbarClassName border border-2 border-secondary shadow rounded mx-auto"
             wrapperClassName="wrapperClassName mx-auto vw-100 vh-50 mb-4"
             editorClassName="editorClassName bg-white shadow border border-2  border-secondary rounded"
+           
           />
           ;
         </InputGroup>
