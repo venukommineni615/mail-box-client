@@ -68,7 +68,7 @@ const MailCard = (props) => {
         </div>
         </div>
         </Button>
-        <Button variant='light' onClick={deleteTheMail} className='ms-2 p-0 text-center fs-4'><RiDeleteBin6Fill /></Button>
+        <Button data-testid="button-with-delete-svg" variant='light' onClick={deleteTheMail} className='ms-2 p-0 text-center fs-4'><RiDeleteBin6Fill /></Button>
       </ListGroup.Item>
   )
 }
