@@ -5,7 +5,14 @@ const mailSent=createSlice({
     initialState:{mails:[]},
     reducers:{
         addMail(state,action){
-            state.mails.push(action.payload)
+            const ele=state.mails.find((item)=>{
+                return item.id=action.payload.id
+            })
+            if(ele){
+                state.mails.push(action.payload)
+            }else{
+                return state
+            }
         },
         removeMail(state,action){
             state.mails=state.mails.filter((mail)=>{
