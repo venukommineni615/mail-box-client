@@ -47,7 +47,7 @@ let cleanedEmail = selfEmailId.replace("@", "").replace(".com", "");
         if(!res.ok){
             throw new Error(data.error.message)
         }
-        dispatch(sentActions.addMail({id:JSON.parse(data.name),...formData,from:selfEmailId}))
+        dispatch(sentActions.addMail({id:data.name,...formData,from:selfEmailId}))
        
       } catch (error) {
         console.error('Error submitting form:', error);

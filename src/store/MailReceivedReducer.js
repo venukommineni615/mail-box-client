@@ -4,10 +4,10 @@ const mailReceived=createSlice({
     name:'sent',
     initialState:{mails:[]},
     reducers:{
-        addSentMail(state,action){
+        addReceivedMail(state,action){
             state.mails.push(action.payload)
         },
-        removeMail(state,action){
+        removeReceivedMail(state,action){
             state.mails=state.mails.filter((mail)=>{
                 return mail.id!==action.payload.id
             })
