@@ -5,7 +5,6 @@ const mailSent=createSlice({
     initialState:{mails:[]},
     reducers:{
         addMail(state,action){
-            ('sent bro')
             state.mails.push(action.payload)
         },
         removeMail(state,action){

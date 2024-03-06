@@ -14,7 +14,7 @@ export function getSentMails(mail){
                 dispatch(sentActions.addMail(mail))
             }
         }}catch(error){
-            console.log(error)
+            console.error(error)
         }
     }
  }
@@ -29,13 +29,12 @@ export function getReceivedMails(mail){
                 return
             }else{
             const keys=Object.keys(data)
-           
             for(let i in keys){
                 const mail={id:keys[i],...data[keys[i]]}
                 dispatch(receivedActions.addSentMail(mail))
             }
         }}}catch(error){
-            console.log(error)
+            console.error(error)
         }
     }
  }

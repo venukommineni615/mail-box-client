@@ -10,9 +10,12 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { useDispatch } from "react-redux";
+import { sentActions } from "../store/MailSentReducer";
 const ComposeMail = () => {
     const email=useRef()
     const subject=useRef()
+    const dispatch=useDispatch()
     let selfEmailId = localStorage.getItem('email');
 let cleanedEmail = selfEmailId.replace("@", "").replace(".com", "");
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -38,12 +41,13 @@ let cleanedEmail = selfEmailId.replace("@", "").replace(".com", "");
             'Content-Type': 'application/json',
             
           },
-          body: JSON.stringify({...formData,receiver:updatedEmail}),
+          body: JSON.stringify({...formData,receiver:email.current.value}),
         });
         const data=await res.json()
         if(!res.ok){
             throw new Error(data.error.message)
         }
+        dispatch(sentActions.addMail({id:JSON.parse(data.name),...formData,from:selfEmailId}))
        
       } catch (error) {
         console.error('Error submitting form:', error);
@@ -56,7 +60,7 @@ let cleanedEmail = selfEmailId.replace("@", "").replace(".com", "");
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({...formData,from:cleanedEmail, sender:cleanedEmail,read:false}),
+            body: JSON.stringify({...formData,from:selfEmailId, sender:selfEmailId,read:false}),
           });
           const data=await res.json()
           if(!res.ok){

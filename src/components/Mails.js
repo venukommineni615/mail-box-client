@@ -9,12 +9,15 @@ import Col from "react-bootstrap/Col";
 import Nav from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
 import MailList from "./MailList";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getReceivedMails, getSentMails } from "../store/mails-actions";
+import { Outlet } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 let initial=true
 const Mails = () => {
   const dispatch=useDispatch()
+  const isMatch=useMatch('/inbox/mail/:type/:id')
   const sentMails=useSelector((state)=>{
 
     return state.sent.mails
@@ -28,9 +31,7 @@ const Mails = () => {
   })
    const navigate=useNavigate()
    useEffect(()=>{
-     console.log('sent mails',sentMails, 'receive wow', receivedMails)
     if(sentMails.length===0 && receivedMails.length === 0 && initial){
-      console.log('sent mails',sentMails, 'receive', receivedMails)
       dispatch(getSentMails(user))
       dispatch(getReceivedMails(user))
       initial=false
@@ -71,10 +72,11 @@ const Mails = () => {
             </Nav>
           </Col>
           <Col sm={10} className="bg-warning-subtle px-0">
-            <Tab.Content >
+          { isMatch===null&& <Tab.Content >
               <Tab.Pane eventKey="first" ><MailList receive={true} mails={receivedMails}></MailList></Tab.Pane>
               <Tab.Pane eventKey="second"><MailList sent={true} mails={sentMails} ></MailList></Tab.Pane>
-            </Tab.Content >
+            </Tab.Content >}
+           <Outlet></Outlet>
           </Col>
         </Row>
       </Tab.Container>
