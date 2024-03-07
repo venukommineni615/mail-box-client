@@ -70,6 +70,9 @@ let cleanedEmail = selfEmailId.replace("@", "").replace(".com", "");
         } catch (error) {
           console.error('Error submitting form:', error);
         }
+      email.current.value=''
+      subject.current.value=''
+      setEditorState(EditorState.createEmpty())
       
   }
 

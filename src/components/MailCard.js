@@ -7,6 +7,7 @@ import { receivedActions } from '../store/MailReceivedReducer';
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { sentActions } from '../store/MailSentReducer';
 import draftToHtml from 'draftjs-to-html';
+import { GoDotFill } from "react-icons/go";
 const MailCard = (props) => {
   const navigate=useNavigate()
   const dispatch=useDispatch()
@@ -61,7 +62,7 @@ const MailCard = (props) => {
         <div className="ms-2 me-auto d-flex justify-content-between align-items-center w-100 ">
         
           <div className="fw-bold ">
-            {!props.sent  && !props.mail.read && <span className='fw-bold fs-6 text-primary'>o </span>}{props.sent?props.mail.receiver:props.mail.sender}</div>
+            {!props.sent  && !props.mail.read && <span className='fw-bold fs-6 text-primary'><GoDotFill /> </span>}{props.sent?props.mail.receiver:props.mail.sender}</div>
          <div > {props.mail.subject}</div>
         <div >
           <p className='pt-3 ' dangerouslySetInnerHTML={{__html:text}}></p>
